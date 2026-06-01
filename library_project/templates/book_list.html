@@ -14,8 +14,7 @@
 
 <body>
 
-    <!-- Navbar -->
-
+   
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
         <div class="container">
@@ -30,7 +29,7 @@
 
     </nav>
 
-    <!-- Search and Filter -->
+   
 
     <div class="container mt-4">
 
@@ -38,7 +37,7 @@
 
             <div class="row">
 
-                <!-- Search -->
+                
 
                 <div class="col-md-6">
 
@@ -47,7 +46,7 @@
 
                 </div>
 
-                <!-- Category Filter -->
+               
 
                 <div class="col-md-4">
 
@@ -66,7 +65,7 @@
 
                 </div>
 
-                <!-- Button -->
+               
 
                 <div class="col-md-2">
 
@@ -82,7 +81,7 @@
 
     </div>
 
-    <!-- Book Catalog -->
+   
 
     <div class="container mt-5">
 
@@ -94,13 +93,13 @@
 
                 <div class="card shadow h-100">
 
-                    <!-- Book Image -->
+                    
 
                     <img src="{{ book.image.url }}" height="300px" class="card-img-top">
 
                     <div class="card-body">
 
-                        <!-- Book Title -->
+                        
 
                         <h5>
                             <a href="{% url 'book_detail' book.id %}" class="text-decoration-none">
@@ -110,20 +109,20 @@
                             </a>
                         </h5>
 
-                        <!-- Author -->
+                        
 
                         <p>
                             Author: {{ book.author }}
                         </p>
 
-                        <!-- Category -->
+                       
 
                         <p>
                             Category:
                             {{ book.category.name }}
                         </p>
 
-                        <!-- Availability -->
+                       
 
                         {% if book.available %}
 
