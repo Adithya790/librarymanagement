@@ -1,141 +1,251 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Library Management</title>
+    <title>Library Management System</title>
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+        <ul class="navbar-nav ms-auto">
+
+    {% if user.is_authenticated %}
+
+          <li class="nav-item">
+                <span class="nav-link user-name">
+                    👋 {{ user.username }}
+                </span>
+            </li>
+
+        
+
+    {% else %}
+
+        
+
+
+    {% endif %}
+
+</ul>
 
         <div class="container">
 
-           
-
-            <a class="navbar-brand" href="/">
-
-                My Library
-
+            <a class="navbar-brand fw-bold" href="/">
+                📚 My Library
             </a>
 
-           
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            <div class="d-flex align-items-center">
+            <div class="collapse navbar-collapse" id="navbarNav">
 
-               
+                <ul class="navbar-nav mx-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'book_list' %}">
+                            Books
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">
+                            About
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">
+                            Contact
+                        </a>
+                    </li>
+
+                </ul>
 
                 <form class="d-flex me-3">
-
-                    <input class="form-control me-2" type="search" placeholder="Search books">
-
-                    <button class="btn btn-warning">
-
-                        Search
-
+                    <input class="form-control me-2"
+                           type="search"
+                           placeholder="Search books">
+                    <button class="btn btn-light">
+                        <i class="fas fa-search"></i>
                     </button>
-
                 </form>
 
-
-
-               
                 {% if user.is_authenticated %}
-               
-                <a href="{% url 'logout' %}" class="btn btn-outline-danger me-2">
+
+                <a href="{% url 'logout' %}"
+                   class="btn btn-outline-danger">
                     Logout
                 </a>
+
                 {% else %}
-                
-                <a href="{% url 'login' %}" class="btn btn-outline-light me-2">
+
+                <a href="{% url 'login' %}"
+                   class="btn btn-outline-light me-2">
                     Login
                 </a>
+
+                <a href="{% url 'register' %}"
+                   class="btn btn-primary">
+                    Register
+                </a>
+
                 {% endif %}
-
-
 
             </div>
 
         </div>
 
     </nav>
+ 
+    <section class="hero">
 
-  
+        <div class="overlay">
 
-    <div class="hero">
-        <div class="container text-center text-white">
-            <h1>Welcome to Library</h1>
-            <p>Find your favorite books easily</p>
+            <div class="container h-100">
+
+                <div class="row align-items-center h-100">
+
+                    <div class="col-md-6 text-white">
+
+                        <h1 class="fw-bold display-4">
+                            Welcome to <br>
+                            Library Management System
+                        </h1>
+
+                        <p class="mt-3">
+                            Search books, issue, return and manage your
+                            reading easily.
+                        </p>
+
+                        <a href="{% url 'book_list' %}"
+                           class="btn btn-primary btn-lg me-2">
+                            Browse Books
+                        </a>
+
+                        <a href="{% url 'register' %}"
+                           class="btn btn-light btn-lg">
+                            Member Registration
+                        </a>
+
+                    </div>
+
+                   
+
+                </div>
+
+            </div>
+
         </div>
+
+    </section>
+
+
+<div class="container feature-wrapper">
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+            <div class="feature-card">
+
+                <i class="fas fa-book fa-3x text-primary"></i>
+
+                <h5 class="mt-3">Books Catalog</h5>
+
+                <p>Explore thousands of books</p>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="feature-card">
+
+                <i class="fas fa-repeat fa-3x text-warning"></i>
+
+                <h5 class="mt-3">Issue & Return</h5>
+
+                <p>Borrow and return books easily</p>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="feature-card">
+
+                <i class="fas fa-heart fa-3x text-danger"></i>
+
+                <h5 class="mt-3">Reservations</h5>
+
+                <p>Reserve your favourite books</p>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="feature-card">
+
+                <i class="fas fa-clock fa-3x text-success"></i>
+
+                <h5 class="mt-3">Due Date & Fines</h5>
+
+                <p>Track dues and manage fines</p>
+
+            </div>
+        </div>
+
     </div>
 
+</div>
 
     
 
     <div class="container mt-5">
 
-        <h2>Categories</h2>
+        <div class="d-flex justify-content-between align-items-center mb-4">
 
-        {% for category in categories %}
+            <h2>Featured Books</h2>
 
-        <a href="/books/?category={{ category.id }}" class="btn btn-outline-primary m-1">
+            <a href="{% url 'book_list' %}"
+               class="btn btn-primary">
+                View All
+            </a>
 
-            {{ category.name }}
-
-        </a>
-
-        {% endfor %}
-
-    </div>
-    
-
-    <div class="container mt-5">
-
-        <h2>Featured Books</h2>
+        </div>
 
         <div class="row">
 
             {% for book in books %}
 
-            <div class="col-md-3 mb-4">
+            <div class="col-md-3 mb-3">
 
-                <div class="card shadow h-100">
-
-                   
+                <div class="card shadow h-100 border-0">
 
                     <a href="{% url 'book_detail' book.id %}">
-
-                        <img src="{{ book.image.url }}" class="card-img-top" height="300px">
-
+                        <img src="{{ book.image.url }}"
+                             class="card-img-top book-img"
+                             height="350">
+                            
                     </a>
 
-                    <div class="card-body">
+                    <div class="card-body text-center">
 
-                       
+                        <h6>{{ book.title }}</h6>
 
-                        <a href="{% url 'book_detail' book.id %}" class="text-decoration-none text-dark">
-
-                            <h5>{{ book.title }}</h5>
-
-                        </a>
-
-                        <p>{{ book.author }}</p>
-
-                        {% if book.available %}
-                        <span class="badge bg-success">
-                            Available
-                        </span>
-                        {% else %}
-                        <span class="badge bg-danger">
-                            Not Available
-                        </span>
-                        {% endif %}
+                        <small>{{ book.author }}</small>
 
                     </div>
 
@@ -148,6 +258,9 @@
         </div>
 
     </div>
+
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
 
 </body>
 
