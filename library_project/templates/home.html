@@ -1,150 +1,39 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
 
-<head>
-    <title>Library Management System</title>
+{% block title %}
+Library Management System
+{% endblock %}
 
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% block content %}
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<section class="hero">
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-</head>
+    <div class="overlay">
 
-<body>
+        <div class="container h-100">
 
+            <div class="row align-items-center h-100">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-        <ul class="navbar-nav ms-auto">
+                <div class="col-md-6 text-white">
 
-    {% if user.is_authenticated %}
+                    <h1 class="fw-bold display-4">
+                        Welcome to <br>
+                        Library Management System
+                    </h1>
 
-          <li class="nav-item">
-                <span class="nav-link user-name">
-                    👋 {{ user.username }}
-                </span>
-            </li>
+                    <p class="mt-3">
+                        Search books, issue, return and manage your
+                        reading easily.
+                    </p>
 
-        
+                    <a href="{% url 'book_list' %}" class="btn btn-primary btn-lg me-2">
+                        Browse Books
+                    </a>
 
-    {% else %}
-
-        
-
-
-    {% endif %}
-
-</ul>
-
-        <div class="container">
-
-            <a class="navbar-brand fw-bold" href="/">
-                📚 My Library
-            </a>
-
-            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-
-                <ul class="navbar-nav mx-auto">
-
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="/">Home</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'book_list' %}">
-                            Books
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">
-                            About
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">
-                            Contact
-                        </a>
-                    </li>
-
-                </ul>
-
-                <form class="d-flex me-3">
-                    <input class="form-control me-2"
-                           type="search"
-                           placeholder="Search books">
-                    <button class="btn btn-light">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
-
-                {% if user.is_authenticated %}
-
-                <a href="{% url 'logout' %}"
-                   class="btn btn-outline-danger">
-                    Logout
-                </a>
-
-                {% else %}
-
-                <a href="{% url 'login' %}"
-                   class="btn btn-outline-light me-2">
-                    Login
-                </a>
-
-                <a href="{% url 'register' %}"
-                   class="btn btn-primary">
-                    Register
-                </a>
-
-                {% endif %}
-
-            </div>
-
-        </div>
-
-    </nav>
- 
-    <section class="hero">
-
-        <div class="overlay">
-
-            <div class="container h-100">
-
-                <div class="row align-items-center h-100">
-
-                    <div class="col-md-6 text-white">
-
-                        <h1 class="fw-bold display-4">
-                            Welcome to <br>
-                            Library Management System
-                        </h1>
-
-                        <p class="mt-3">
-                            Search books, issue, return and manage your
-                            reading easily.
-                        </p>
-
-                        <a href="{% url 'book_list' %}"
-                           class="btn btn-primary btn-lg me-2">
-                            Browse Books
-                        </a>
-
-                        <a href="{% url 'register' %}"
-                           class="btn btn-light btn-lg">
-                            Member Registration
-                        </a>
-
-                    </div>
-
-                   
+                    <a href="{% url 'register' %}" class="btn btn-light btn-lg">
+                        Member Registration
+                    </a>
 
                 </div>
 
@@ -152,116 +41,125 @@
 
         </div>
 
-    </section>
+    </div>
 
-
+</section>
 <div class="container feature-wrapper">
 
     <div class="row g-4">
 
+
         <div class="col-md-3">
-            <div class="feature-card">
+            <a href="{% url 'book_list' %}" class="text-decoration-none">
+                <div class="feature-card">
 
-                <i class="fas fa-book fa-3x text-primary"></i>
+                    <i class="fas fa-book fa-3x text-primary"></i>
 
-                <h5 class="mt-3">Books Catalog</h5>
+                    <h5 class="mt-3">Books Catalog</h5>
 
-                <p>Explore thousands of books</p>
+                    <p>Explore thousands of books</p>
 
-            </div>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="col-md-3">
+
+            <a href="{% url 'my_issued_books' %}" class="text-decoration-none ">
+
+                <div class="feature-card">
+
+                    <i class="fas fa-repeat fa-3x text-warning"></i>
+
+                    <h5 class="mt-3">
+                        Issue & Return
+                    </h5>
+
+                    <p>
+                        Borrow and return books easily
+                    </p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+
+        <div class="col-md-3">
+            <a href="{% url 'reserved_books' %}" class="text-decoration-none">
+                <div class="feature-card">
+
+                    <i class="fas fa-heart fa-3x text-danger"></i>
+
+                    <h5 class="mt-3">Reservations</h5>
+
+                    <p>Reserve your favourite books</p>
+
+                </div>
+            </a>
         </div>
 
         <div class="col-md-3">
-            <div class="feature-card">
+            <a href="{% url 'due_fines' %}" class="text-decoration-none ">
 
-                <i class="fas fa-repeat fa-3x text-warning"></i>
+                <div class="feature-card">
+                    <i class="fas fa-clock fa-3x text-success"></i>
 
-                <h5 class="mt-3">Issue & Return</h5>
+                    <h5 class="mt-3">Due Date & Fines</h5>
 
-                <p>Borrow and return books easily</p>
+                    <p>Track dues and manage fines</p>
+                </div>
+
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>Featured Books</h2>
+
+        <a href="{% url 'book_list' %}" class="btn btn-primary">
+            View All
+        </a>
+
+    </div>
+
+    <div class="row">
+
+        {% for book in books %}
+
+        <div class="col-md-3 mb-3">
+
+            <div class="card shadow h-100 border-0">
+
+                <a href="{% url 'book_detail' book.id %}">
+
+                    <img src="{{ book.image.url }}" class="card-img-top book-img" height="350" alt="{{ book.title }}">
+
+                </a>
+
+                <div class="card-body text-center">
+
+                    <h6>{{ book.title }}</h6>
+
+                    <small>{{ book.author }}</small>
+
+                </div>
 
             </div>
+
         </div>
 
-        <div class="col-md-3">
-            <div class="feature-card">
-
-                <i class="fas fa-heart fa-3x text-danger"></i>
-
-                <h5 class="mt-3">Reservations</h5>
-
-                <p>Reserve your favourite books</p>
-
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="feature-card">
-
-                <i class="fas fa-clock fa-3x text-success"></i>
-
-                <h5 class="mt-3">Due Date & Fines</h5>
-
-                <p>Track dues and manage fines</p>
-
-            </div>
-        </div>
+        {% endfor %}
 
     </div>
 
 </div>
 
-    
-
-    <div class="container mt-5">
-
-        <div class="d-flex justify-content-between align-items-center mb-4">
-
-            <h2>Featured Books</h2>
-
-            <a href="{% url 'book_list' %}"
-               class="btn btn-primary">
-                View All
-            </a>
-
-        </div>
-
-        <div class="row">
-
-            {% for book in books %}
-
-            <div class="col-md-3 mb-3">
-
-                <div class="card shadow h-100 border-0">
-
-                    <a href="{% url 'book_detail' book.id %}">
-                        <img src="{{ book.image.url }}"
-                             class="card-img-top book-img"
-                             height="350">
-                            
-                    </a>
-
-                    <div class="card-body text-center">
-
-                        <h6>{{ book.title }}</h6>
-
-                        <small>{{ book.author }}</small>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            {% endfor %}
-
-        </div>
-
-    </div>
-
-
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
-
-</body>
-
-</html>
+{% endblock %}

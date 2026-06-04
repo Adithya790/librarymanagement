@@ -1,142 +1,116 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html>
+{% block title %}
+Book Catalog
+{% endblock %}
 
-<head>
-    <title>Book Catalog</title>
+{% block content %}
 
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<div class="container mt-4">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-   
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
-        <div class="container">
-
-            <a class="navbar-brand" href="/">My Library</a>
-
-            <a href="/books/" class="btn btn-warning">
-                All Books
-            </a>
-
-        </div>
-
-    </nav>
-
-   
-
-    <div class="container mt-4">
-
-        <form method="GET">
-
-            <div class="row">
-
-                
-
-                <div class="col-md-6">
-
-                    <input type="text" name="search" class="form-control" placeholder="Search by title or author"
-                        value="{{ request.GET.search }}">
-
-                </div>
-
-               
-
-                <div class="col-md-4">
-
-                    <select name="category" class="form-select">
-
-                        <option value="">All Categories</option>
-
-                        {% for category in categories %}
-
-                        <option value="{{ category.id }}">
-                            {{ category.name }}
-                        </option>
-                        {% endfor %}
-
-                    </select>
-
-                </div> 
-
-               
-
-                <div class="col-md-2">
-
-                    <button class="btn btn-primary w-100">
-                        Search
-                    </button>
-
-                </div>
-
-            </div>
-
-        </form>
-
-    </div>
-
-   
-
-    <div class="container mt-5">
+    <form method="GET">
 
         <div class="row">
 
-            {% for book in books %}
+            <div class="col-md-6">
 
-            <div class="col-md-3 mb-4">
+                <input type="text"
+                       name="search"
+                       class="form-control"
+                       placeholder="Search by title or author"
+                       value="{{ request.GET.search }}">
 
-                <div class="card shadow h-100">
+            </div>
 
-                    
+            <div class="col-md-4">
 
-                    <img src="{{ book.image.url }}" height="300px" class="card-img-top">
+                <select name="category" class="form-select">
 
-                    <div class="card-body">
+                    <option value="">All Categories</option>
 
-                        
+                    {% for category in categories %}
 
-                        <h5>
-                            <a href="{% url 'book_detail' book.id %}" class="text-decoration-none">
+                    <option value="{{ category.id }}">
+                        {{ category.name }}
+                    </option>
 
-                                {{ book.title }}
+                    {% endfor %}
 
-                            </a>
-                        </h5>
+                </select>
 
-                        
+            </div>
 
-                        <p>
-                            Author: {{ book.author }}
-                        </p>
+            <div class="col-md-2">
 
-                       
+                <button class="btn btn-primary w-100">
+                    Search
+                </button>
 
-                        <p>
-                            Category:
-                            {{ book.category.name }}
-                        </p>
+            </div>
 
-                       
+        </div>
 
-                        {% if book.available %}
+    </form>
+
+</div>
+
+<div class="container mt-5">
+
+    <div class="row">
+
+        {% for book in books %}
+
+        <div class="col-md-3 mb-4">
+
+            <div class="card shadow h-100">
+
+                <img src="{{ book.image.url }}"
+                     height="300"
+                     class="card-img-top"
+                     alt="{{ book.title }}">
+
+                <div class="card-body">
+
+                    <h5>
+
+                        <a href="{% url 'book_detail' book.id %}"
+                           class="text-decoration-none">
+
+                            {{ book.title }}
+
+                        </a>
+
+                    </h5>
+
+                    <p>
+                        Author: {{ book.author }}
+                    </p>
+
+                    <p>
+                        Category: {{ book.category.name }}
+                    </p>
+
+                    {% if book.available %}
 
                         <span class="badge bg-success">
                             Available
                         </span>
 
-                        {% else %}
+                    {% else %}
 
                         <span class="badge bg-danger">
                             Not Available
                         </span>
 
-                        {% endif %}
+                    {% endif %}
+
+                    <div class="mt-3">
+
+                        <a href="{% url 'book_detail' book.id %}"
+                           class="btn btn-primary btn-sm">
+                            View Details
+                        </a>
 
                     </div>
 
@@ -144,16 +118,20 @@
 
             </div>
 
-            {% empty %}
+        </div>
+
+        {% empty %}
+
+        <div class="col-12 text-center">
 
             <h3>No books found</h3>
 
-            {% endfor %}
-
         </div>
+
+        {% endfor %}
 
     </div>
 
-</body>
+</div>
 
-</html>
+{% endblock %}

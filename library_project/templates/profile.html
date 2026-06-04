@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4">
+
+        <h2 class="mb-4">
+            👤 My Profile
+        </h2>
+
+        <table class="table table-bordered">
+
+            <tr>
+                <th>Username</th>
+                <td>{{ request.user.username }}</td>
+            </tr>
+
+            <tr>
+                <th>Email</th>
+                <td>{{ request.user.email }}</td>
+            </tr>
+
+            <tr>
+                <th>Role</th>
+                <td>{{ profile.role }}</td>
+            </tr>
+
+            <tr>
+                <th>Date Joined</th>
+                <td>{{ request.user.date_joined }}</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

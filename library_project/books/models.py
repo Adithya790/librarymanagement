@@ -32,3 +32,22 @@ class Reservation(models.Model):
 
     def __str__(self):
         return f"{self.user.username} reserved {self.book.title}"
+
+
+
+class IssuedBook(models.Model):
+
+    user = models.ForeignKey(User,on_delete=models.CASCADE )
+
+    book = models.ForeignKey(Book, on_delete=models.CASCADE )
+
+    issue_date = models.DateField(auto_now_add=True)
+
+    due_date = models.DateField()
+
+    return_date = models.DateField(null=True,blank=True)
+
+    fine = models.DecimalField(max_digits=8,decimal_places=2,default=0)
+
+    status = models.CharField(max_length=20,default='Issued')
+    def __str__(self):return f"{self.user.username} - {self.book.title}"

@@ -1,0 +1,126 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Due Date & Fines</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+
+    <div class="container">
+
+        <a class="navbar-brand fw-bold" href="/">
+            📚 My Library
+        </a>
+
+        <a href="{% url 'home' %}" class="btn btn-warning">
+            Back Home
+        </a>
+
+    </div>
+
+</nav>
+
+<div class="container mt-5">
+
+    <div class="card shadow border-0">
+
+        <div class="card-header bg-danger text-white">
+
+            <h3 class="mb-0">
+                📅 Due Date & Fines
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-hover">
+
+                <thead class="table-dark">
+
+                    <tr>
+                        <th>Book</th>
+                        <th>Issue Date</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                        <th>Fine</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for item in issued_books %}
+
+                    <tr>
+
+                        <td>{{ item.book.title }}</td>
+
+                        <td>{{ item.issue_date }}</td>
+
+                        <td>{{ item.due_date }}</td>
+
+                        <td>
+
+                            {% if item.status == "Issued" %}
+                                <span class="badge bg-warning">
+                                    Issued
+                                </span>
+                            {% else %}
+                                <span class="badge bg-success">
+                                    Returned
+                                </span>
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+                            ₹{{ item.fine }}
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            No books found
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            <div class="alert alert-danger mt-4">
+
+                <h4 class="mb-0">
+                    Total Pending Fine :
+                    ₹{{ total_fine }}
+                </h4>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
